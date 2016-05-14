@@ -39,7 +39,7 @@ module.exports = function(value, type, key) {
     meta.type = type;
     error = unwrapError(meta, result);
   } else {
-    if (!isType(value, type)) {
+    if (isType(value, type)) {
       return;
     }
     meta.value = value;

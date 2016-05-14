@@ -27,7 +27,7 @@ module.exports = (value, type, key) ->
     error = unwrapError meta, result
 
   else
-    return unless isType value, type
+    return if isType value, type
     meta.value = value
     meta.type = type
     error = wrongType type, key
