@@ -1,8 +1,4 @@
-var Validator, isConstructor, isType, throwFailure, unwrapError, wrongType;
-
-throwFailure = require("failure").throwFailure;
-
-isConstructor = require("isConstructor");
+var Validator, isType, wrongType;
 
 Validator = require("Validator");
 
@@ -11,61 +7,23 @@ wrongType = require("wrongType");
 isType = require("isType");
 
 module.exports = function(value, type, key) {
-  var error, meta, result;
-  if (isConstructor(key, Object)) {
-    meta = key;
-    key = meta.key;
-  } else {
-    meta = {
-      key: key
-    };
-  }
-  if (!type) {
-    error = Error("'assertType' expects a (value, type, key) argument list!");
-    error.skip = 1;
-    throwFailure(error, {
-      value: value,
-      type: type,
-      key: key,
-      meta: meta
-    });
+  var error;
+  if ((key != null) && typeof key !== "string") {
+    console.warn("DEPRECATED: Third argument of 'assertType()' must be a String!");
+    return;
   }
   if (type instanceof Validator) {
-    result = type.assert(value, key);
-    if (!result) {
-      return;
+    error = type.assert(value, key);
+    if (error instanceof Error) {
+      throw error;
     }
-    meta.value = value;
-    meta.type = type;
-    error = unwrapError(meta, result);
-  } else {
-    if (isType(value, type)) {
-      return;
-    }
-    meta.value = value;
-    meta.type = type;
-    error = wrongType(type, key);
+    error && console.warn("DEPRECATED: 'Validator::assert' must return a kind of Error (or Void)!");
+    return;
   }
-  if (error.skip == null) {
-    error.skip = 1;
+  if (isType(value, type)) {
+    return;
   }
-  error.skip += 1;
-  throwFailure(error, meta);
+  throw wrongType(type, key);
 };
 
-unwrapError = function(meta, result) {
-  var key, ref, value;
-  if (result instanceof Error) {
-    return result;
-  }
-  if (result.meta) {
-    ref = result.meta;
-    for (key in ref) {
-      value = ref[key];
-      meta[key] = value;
-    }
-  }
-  return result.error;
-};
-
-//# sourceMappingURL=../../map/src/assertType.map
+//# sourceMappingURL=map/assertType.map
