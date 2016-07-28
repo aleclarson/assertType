@@ -1,7 +1,7 @@
 {
   "name": "assertType",
   "version": "1.0.0",
-  "main": "js/src/assertType",
+  "main": "js/assertType",
   "dependencies": {
     "Validator": "aleclarson/Validator#1.0.0",
     "isType": "aleclarson/isType#1.0.0",
