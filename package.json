@@ -1,13 +1,11 @@
 {
   "name": "assertType",
-  "version": "1.0.0",
-  "main": "js/src/assertType",
+  "version": "2.0.0",
+  "main": "js/assertType",
   "dependencies": {
-    "isConstructor": "aleclarson/isConstructor#1.0.0",
+    "Validator": "aleclarson/Validator#1.1.0",
     "isType": "aleclarson/isType#1.0.0",
-    "wrongType": "aleclarson/wrongType#1.0.0",
-    "failure": "aleclarson/failure#1.0.0",
-    "Validator": "aleclarson/Validator#1.0.0"
+    "wrongType": "aleclarson/wrongType#1.0.0"
   },
   "lotus": {
     "plugins": [
