@@ -9,21 +9,23 @@ isType = require("isType");
 module.exports = function(value, type, key) {
   var error;
   if ((key != null) && typeof key !== "string") {
-    console.warn("DEPRECATED: Third argument of 'assertType()' must be a String!");
-    return;
+    throw Error("'key' must be a string (or undefined)!");
   }
   if (type instanceof Validator) {
     error = type.assert(value, key);
+    if (error === void 0) {
+      return;
+    }
     if (error instanceof Error) {
       throw error;
     }
-    error && console.warn("DEPRECATED: 'Validator::assert' must return a kind of Error (or Void)!");
-    return;
+    throw Error("'Validator::assert' must return an error (or undefined)!");
   }
   if (isType(value, type)) {
     return;
   }
-  throw wrongType(type, key);
+  error = wrongType(type, key);
+  throw error;
 };
 
 //# sourceMappingURL=map/assertType.map

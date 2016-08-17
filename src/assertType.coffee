@@ -6,14 +6,14 @@ isType = require "isType"
 module.exports = (value, type, key) ->
 
   if key? and typeof key isnt "string"
-    console.warn "DEPRECATED: Third argument of 'assertType()' must be a String!"
-    return
+    throw Error "'key' must be a string (or undefined)!"
 
   if type instanceof Validator
     error = type.assert value, key
+    return if error is undefined
     throw error if error instanceof Error
-    error and console.warn "DEPRECATED: 'Validator::assert' must return a kind of Error (or Void)!"
-    return
+    throw Error "'Validator::assert' must return an error (or undefined)!"
 
   return if isType value, type
-  throw wrongType type, key
+  error = wrongType type, key
+  throw error
