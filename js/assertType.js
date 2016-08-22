@@ -1,4 +1,4 @@
-var Validator, isType, wrongType;
+var Validator, assertType, isType, wrongType;
 
 Validator = require("Validator");
 
@@ -6,7 +6,7 @@ wrongType = require("wrongType");
 
 isType = require("isType");
 
-module.exports = function(value, type, key) {
+assertType = function(value, type, key) {
   var error;
   if ((key != null) && typeof key !== "string") {
     throw Error("'key' must be a string (or undefined)!");
@@ -27,5 +27,7 @@ module.exports = function(value, type, key) {
   error = wrongType(type, key);
   throw error;
 };
+
+module.exports = assertType;
 
 //# sourceMappingURL=map/assertType.map
