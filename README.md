@@ -1,5 +1,5 @@
 
-# assertType v2.0.1 ![stable](https://img.shields.io/badge/stability-stable-4EBA0F.svg?style=flat)
+# assertType v2.0.2 ![stable](https://img.shields.io/badge/stability-stable-4EBA0F.svg?style=flat)
 
 Also compatible with any [`Validator`](https://github.com/aleclarson/Validator).
 
